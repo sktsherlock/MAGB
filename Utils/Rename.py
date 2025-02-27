@@ -4,11 +4,11 @@ import argparse
 # 创建命令行参数解析器
 parser = argparse.ArgumentParser(description='Rename files in a folder based on a pattern.')
 # 添加文件夹路径参数
-parser.add_argument('folder_path', type=str, help='Path to the folder containing the files to be renamed.')
+parser.add_argument('--folder_path', type=str, help='Path to the folder containing the files to be renamed.')
 # 添加要匹配的前缀参数
-parser.add_argument('old_prefix', type=str, help='The old prefix to match in filenames.')
+parser.add_argument('--old_prefix', type=str, help='The old prefix to match in filenames.')
 # 添加要替换成的新前缀参数
-parser.add_argument('new_prefix', type=str, help='The new prefix to replace the old prefix with.')
+parser.add_argument('--new_prefix', type=str, help='The new prefix to replace the old prefix with.')
 # 解析命令行参数
 args = parser.parse_args()
 
