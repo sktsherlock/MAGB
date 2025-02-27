@@ -1,4 +1,5 @@
-# MAGB ![](https://img.shields.io/badge/license-CCY4.0-blue)
+# Multimodal Attributed Graph Benchmark ![](https://img.shields.io/badge/license-CC%20BY%204.0-blue)![](https://img.shields.io/github/stars/sktsherlock/MAGB?style=social)![](https://img.shields.io/github/forks/sktsherlock/MAGB?style=social)![](https://img.shields.io/github/languages/top/sktsherlock/MAGB)
+
 
 <p>
     <img src="Figure/Logo.jpg" width="190" align="left" style="margin-right: 20px;"/>
