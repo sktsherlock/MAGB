@@ -1,36 +1,26 @@
-# 🚀 Multimodal Attributed Graph Benchmark  ![](https://img.shields.io/badge/license-CCY4.0-blue)
-
+# MAGB ![](https://img.shields.io/badge/license-CCY4.0-blue)
 
 <p>
-    <img src="Figure/Logo.jpg" width="200" align="left" style="margin-right: 20px;"/>
+    <img src="Figure/Logo.jpg" width="190" align="left" style="margin-right: 20px;"/>
 </p>
 
 <p>
-    💜 <a href="https://chat.qwenlm.ai/"><b>Qwen Chat</b></a>&nbsp&nbsp | &nbsp&nbsp🤗 <a href="https://huggingface.co/collections/Qwen/qwen25-vl-6795ffac22b334a837c0f9a5">Hugging Face</a>&nbsp&nbsp | &nbsp&nbsp🤖 <a href="https://modelscope.cn/organization/qwen">ModelScope</a>&nbsp&nbsp | &nbsp&nbsp📑 <a href="https://qwenlm.github.io/blog/qwen2.5-vl/">Blog</a>&nbsp&nbsp | &nbsp&nbsp📚 <a href="https://github.com/QwenLM/Qwen2.5-VL/tree/main/cookbooks">Cookbooks</a>&nbsp&nbsp | &nbsp&nbsp📑 <a href="https://arxiv.org/abs/2502.13923">Paper</a>&nbsp&nbsp
+    <b>MAGB: A Comprehensive Benchmark for Multimodal Attributed Graphs</b>
 </p>
 
-[//]: # (# MAGB  ![]&#40;https://img.shields.io/badge/license-CCY4.0-blue&#41;)
- MAGB is a project to share the public multimodal attributed graph &#40;MAG&#41; datasets and benchmark the performance of the different baseline methods.
 
- MAGB is a project to share the public multimodal attributed graph &#40;MAG&#41; datasets and benchmark the performance of the different baseline methods.
- 
+In many real-world scenarios, graph nodes are associated with multimodal attributes, such as texts and images, resulting in **Multimodal Attributed Graphs (MAGs)**.
 
-(We welcome more to share datasets that are valuable for MAGs research.)
 
- MAGB is a project to share the public multimodal attributed graph &#40;MAG&#41; datasets and benchmark the performance of the different baseline methods.
 
-[//]: # ()
-[//]: # (## Datasets 🔔)
+MAGB first provide 5 dataset from E-Commerce and Social Networks. And we evaluate two major paradigms: _**GNN-as Predictor**_  and **_VLM-as-Predictor_** . The datasets are publicly available:
 
-[//]: # (We collect and construct 5 MAG datasets from Amazon and Reddit.)
 
-[//]: # ()
+<p>
+     🤗 <a href="https://huggingface.co/datasets/Sherirto/MAGB">Hugging Face</a>&nbsp&nbsp | &nbsp&nbsp🤖 <a href="https://modelscope.cn/organization/qwen">FeatureExtract</a>&nbsp&nbsp  | &nbsp&nbsp📑 <a href="https://arxiv.org/abs/2410.09132">Paper</a>&nbsp&nbsp
+</p>
 
-[//]: # (A comprehensive benchmark for evaluating multimodal attributed graphs.  )
 
-[//]: # (This repository provides datasets, feature extraction methods, evaluation metrics, and baseline models for research in multimodal attributed graphs.)
-
----
 
 ## 📖 Table of Contents  
 - [📖 Introduction](#-introduction)  
