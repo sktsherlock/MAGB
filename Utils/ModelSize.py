@@ -21,13 +21,14 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Script for check the size of the model')
     parser.add_argument('--model_name', type=str, help='Path to the model or the name',
                         default='TinyLlama/TinyLlama-1.1B-Chat-v1.0')
+    parser.add_argument('--token', type=str, help='Token for the model')
     args = parser.parse_args()
 
     # 创建用于分类的模型
     model = AutoModel.from_pretrained(
         args.model_name,
         trust_remote_code=True,
-        token='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',
+        token=args.token,
     )
     print(model)
     print_trainable_parameters(model)

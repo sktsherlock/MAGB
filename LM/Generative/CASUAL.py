@@ -36,7 +36,7 @@ else:
     raise ValueError
 
 # 加载token
-access_token = "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"
+access_token = os.getenv('ACCESS_TOKEN', None)
 
 world_size = int(os.getenv('WORLD_SIZE', '1'))
 local_rank = int(os.getenv('LOCAL_RANK', '0'))
