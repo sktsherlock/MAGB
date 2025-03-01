@@ -217,6 +217,7 @@ def main():
     parser.add_argument('--model_name', type=str, default='prajjwal1/bert-tiny', required=True,
                         help='Name or path of the Huggingface model')
     parser.add_argument('--tokenizer_name', type=str, default=None)
+    parser.add_argument('--access_token', type=str, default=None)
     parser.add_argument('--name', type=str, default='Movies', help='Prefix name for the  NPY file', required=True)
     parser.add_argument('--path', type=str, default='./', help='Path to the NPY File', required=True)
     parser.add_argument('--pretrain_path', type=str, default=None, help='Path to the NPY File')
@@ -242,7 +243,6 @@ def main():
     model_name = args.model_name
     name = args.name
     max_length = args.max_length
-    access_token = "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"
     tokenizer_name = args.tokenizer_name
     output_dir = args.output_dir + args.model_name.split('/')[-1].replace("-", "_") + '/' + f'd_{args.drop_out}_w_{args.warmup_ratio}_lr_{args.learning_rate}_e_{args.num_train_epochs}_b_{args.batch_size}_u{args.unfreeze_layers}'
 
