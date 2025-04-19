@@ -88,7 +88,7 @@ In this section, we demonstrate the execution code for both GNN-as-Predictor and
 
 ### GNN-as-Predictor
 
-#### Node Classification
+#### 🧩 Node Classification
 
 In the `GNN/Library` directory, we provide the code for models evaluated in the paper, including `GCN, GraphSAGE, GAT, RevGAT`,and `MLP`. Additionally, we have added graph learning models such as `APPNP`, `SGC`, `Node2Vec`, and `DeepWalk` for your use. Below, we show the code for node classification using `GCN` on the Movies dataset in two scenarios: 3-shot learning and supervised learning.
 
@@ -126,3 +126,31 @@ Below are the key parameters related to model training, along with their default
 | `--selfloop`        | `bool`  | `True`        | Whether to add self-loops to the graph.                     |
 
 Note: Some models may have their own unique parameters, such as 'edge-drop' for `RevGAT` and `GAT`. For these parameters, please refer to the respective code for details.
+
+#### 🔗 Link Prediction
+
+In the `GNN/LinkPrediction` directory, we provide the code for link prediction experiments using three backbone models: `GCN`, `GraphSAGE`, and `MLP`. Below, we demonstrate the code for running link prediction using `GCN` on the `Movies` dataset. The parameters for `GraphSAGE` and `MLP` are similar, and you can replace `GCN.py` with `SAGE.py` or `MLP.py` to run experiments with those models.
+
+```python
+python GNN/LinkPrediction/GCN.py \
+  --n-hidden 256 \
+  --n-layers 3 \
+  --n-runs 5 \
+  --lr 0.001 \
+  --neg_len 5000 \
+  --dropout 0.2 \
+  --batch_size 2048 \
+  --graph_path 'Data/Movies/MoviesGraph.pt' \
+  --feature 'Data/Movies/TextFeature/Movies_Llama_3.2_1B_Instruct_512_mean.npy' \
+  --link_path Data/LinkPrediction/Movies/
+```
+
+Below are the unique parameters specifically used for link prediction tasks:
+
+| Parameter      | Type  | Default Value | Description                                                                                |
+| -------------- | ----- | ------------- | ------------------------------------------------------------------------------------------ |
+| `--neg_len`    | `int` | `5000`        | Number of negative samples used for training.                                              |
+| `--batch_size` | `int` | `2048`        | Batch size for training.                                                                   |
+| `--link_path`  | `str` | `None`        | Path to the directory containing link prediction data (e.g., positive and negative edges). |
+
+These parameters are critical for handling the unique requirements of link prediction tasks, such as generating and managing negative samples, processing large datasets efficiently, and specifying the location of link prediction data.
