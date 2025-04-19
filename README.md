@@ -88,7 +88,15 @@ In this section, we demonstrate the execution code for both GNN-as-Predictor and
 
 ### GNN-as-Predictor
 
+<<<<<<< HEAD
+
 #### 🧩 Node Classification
+
+=======
+
+#### Node Classification
+
+> > > > > > > 91f41e6ae052cc017af02a739500e840e62fa253
 
 In the `GNN/Library` directory, we provide the code for models evaluated in the paper, including `GCN, GraphSAGE, GAT, RevGAT`,and `MLP`. Additionally, we have added graph learning models such as `APPNP`, `SGC`, `Node2Vec`, and `DeepWalk` for your use. Below, we show the code for node classification using `GCN` on the Movies dataset in two scenarios: 3-shot learning and supervised learning.
 
