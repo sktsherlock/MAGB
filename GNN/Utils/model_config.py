@@ -87,7 +87,7 @@ def add_common_args(argparser):
         help="The metric to be used."
     )
     argparser.add_argument(
-        "--average", type=str, default='weighted', choices=['weighted', 'micro', 'macro', None]
+        "--average", type=str, default='macro', choices=['weighted', 'micro', 'macro', None]
     )
     # ! Split datasets
     argparser.add_argument(
