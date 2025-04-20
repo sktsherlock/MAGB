@@ -140,8 +140,8 @@ python GNN/LinkPrediction/GCN.py \
   --neg_len 5000 \
   --dropout 0.2 \
   --batch_size 2048 \
-  --graph_path 'Data/Movies/MoviesGraph.pt' \
-  --feature 'Data/Movies/TextFeature/Movies_Llama_3.2_1B_Instruct_512_mean.npy' \
+  --graph_path Data/Movies/MoviesGraph.pt \
+  --feature Data/Movies/TextFeature/Movies_Llama_3.2_1B_Instruct_512_mean.npy \
   --link_path Data/LinkPrediction/Movies/
 ```
 
@@ -154,3 +154,22 @@ Below are the unique parameters specifically used for link prediction tasks:
 | `--link_path`  | `str` | `None`        | Path to the directory containing link prediction data (e.g., positive and negative edges). |
 
 These parameters are critical for handling the unique requirements of link prediction tasks, such as generating and managing negative samples, processing large datasets efficiently, and specifying the location of link prediction data.
+
+### VLM-as-Predictor
+
+The `MLLM/Zero-shot.py` script is designed for zero-shot node classification tasks using multimodal large language models (MLLMs). Below are the key command-line arguments for this script:
+
+| Parameter            | Type    | Default Value                                | Description                                                               |
+| -------------------- | ------- | -------------------------------------------- | ------------------------------------------------------------------------- |
+| `--model_name`       | `str`   | `'meta-llama/Llama-3.2-11B-Vision-Instruct'` | HuggingFace model name or path.                                           |
+| `--dataset_name`     | `str`   | `'Movies'`                                   | Name of the dataset (corresponds to a subdirectory in the `Data` folder). |
+| `--base_dir`         | `str`   | `Project root directory`                     | Path to the root directory of the project.                                |
+| `--max_new_tokens`   | `int`   | `15`                                         | Maximum number of tokens to generate.                                     |
+| `--neighbor_mode`    | `str`   | `'both'`                                     | Mode for using neighbor information (`text`, `image`, or `both`).         |
+| `--use_center_text`  | `str`   | `'True'`                                     | Whether to use the center node's text.                                    |
+| `--use_center_image` | `str`   | `'True'`                                     | Whether to use the center node's image.                                   |
+| `--add_CoT`          | `str`   | `'False'`                                    | Whether to add Chain of Thought (CoT) reasoning.                          |
+| `--num_samples`      | `int`   | `5`                                          | Number of test samples to evaluate.                                       |
+| `--num_neighbours`   | `int`   | `0`                                          | Number of neighbors to consider for each node.                            |
+| `--train_ratio`      | `float` | `0.6`                                        | Proportion of the dataset used for training.                              |
+| `--val_ratio`        | `float` | `0.2`                                        | Proportion of the dataset used for validation.                            |
