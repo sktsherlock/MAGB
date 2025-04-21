@@ -21,9 +21,6 @@ MAGB first provide 5 dataset from E-Commerce and Social Networks. And we evaluat
 - [📖 Introduction](#-introduction)
 - [💻 Installation](#-installation)
 - [🚀 Usage](#-usage)
-- [📊 Results](#-results)
-- [🤝 Contributing](#-contributing)
-- [❓ FAQ](#-faq)
 
 ---
 
@@ -159,17 +156,105 @@ These parameters are critical for handling the unique requirements of link predi
 
 The `MLLM/Zero-shot.py` script is designed for zero-shot node classification tasks using multimodal large language models (MLLMs). Below are the key command-line arguments for this script:
 
-| Parameter            | Type    | Default Value                                | Description                                                               |
-| -------------------- | ------- | -------------------------------------------- | ------------------------------------------------------------------------- |
-| `--model_name`       | `str`   | `'meta-llama/Llama-3.2-11B-Vision-Instruct'` | HuggingFace model name or path.                                           |
-| `--dataset_name`     | `str`   | `'Movies'`                                   | Name of the dataset (corresponds to a subdirectory in the `Data` folder). |
-| `--base_dir`         | `str`   | `Project root directory`                     | Path to the root directory of the project.                                |
-| `--max_new_tokens`   | `int`   | `15`                                         | Maximum number of tokens to generate.                                     |
-| `--neighbor_mode`    | `str`   | `'both'`                                     | Mode for using neighbor information (`text`, `image`, or `both`).         |
-| `--use_center_text`  | `str`   | `'True'`                                     | Whether to use the center node's text.                                    |
-| `--use_center_image` | `str`   | `'True'`                                     | Whether to use the center node's image.                                   |
-| `--add_CoT`          | `str`   | `'False'`                                    | Whether to add Chain of Thought (CoT) reasoning.                          |
-| `--num_samples`      | `int`   | `5`                                          | Number of test samples to evaluate.                                       |
-| `--num_neighbours`   | `int`   | `0`                                          | Number of neighbors to consider for each node.                            |
-| `--train_ratio`      | `float` | `0.6`                                        | Proportion of the dataset used for training.                              |
-| `--val_ratio`        | `float` | `0.2`                                        | Proportion of the dataset used for validation.                            |
+| Parameter            | Type  | Default Value                                | Description                                                               |
+| -------------------- | ----- | -------------------------------------------- | ------------------------------------------------------------------------- |
+| `--model_name`       | `str` | `'meta-llama/Llama-3.2-11B-Vision-Instruct'` | HuggingFace model name or path.                                           |
+| `--dataset_name`     | `str` | `'Movies'`                                   | Name of the dataset (corresponds to a subdirectory in the `Data` folder). |
+| `--base_dir`         | `str` | `Project root directory`                     | Path to the root directory of the project.                                |
+| `--max_new_tokens`   | `int` | `15`                                         | Maximum number of tokens to generate.                                     |
+| `--neighbor_mode`    | `str` | `'both'`                                     | Mode for using neighbor information (`text`, `image`, or `both`).         |
+| `--use_center_text`  | `str` | `'True'`                                     | Whether to use the center node's text.                                    |
+| `--use_center_image` | `str` | `'True'`                                     | Whether to use the center node's image.                                   |
+| `--add_CoT`          | `str` | `'False'`                                    | Whether to add Chain of Thought (CoT) reasoning.                          |
+| `--num_samples`      | `int` | `5`                                          | Number of test samples to evaluate.                                       |
+| `--num_neighbours`   | `int` | `0`                                          | Number of neighbors to consider for each node.                            |
+
+Below, we present the code for performing zero-shot node classification on the `Movies` dataset using the `LLaMA-3.2-11B Vision Instruct` model with different strategies. This is provided to help researchers reproduce the experimental results presented in our paper.
+
+1. $\text{Center-only}$
+
+```python
+python MLLM/Zero-shot.py --model_name meta-llama/Llama-3.2-11B-Vision-Instruct --num_samples 300 --max_new_tokens 30 --dataset_name Moives
+```
+
+2. $\text{GRE-T}_{k=1}$
+
+```python
+python MLLM/Zero-shot.py --model_name meta-llama/Llama-3.2-11B-Vision-Instruct --num_neighbours 1 --neighbor_mode text --num_samples 300 --max_new_tokens 30 --dataset_name Moives
+```
+
+3. $\text{GRE-V}_{k=1}$
+
+```python
+python MLLM/Zero-shot.py --model_name meta-llama/Llama-3.2-11B-Vision-Instruct --num_neighbours 1 --neighbor_mode image --num_samples 300 --max_new_tokens 30 --dataset_name Moives
+```
+
+4. $\text{GRE-M}_{k=1}$
+
+```python
+python MLLM/Zero-shot.py --model_name meta-llama/Llama-3.2-11B-Vision-Instruct --num_neighbours 1 --neighbor_mode both --num_samples 300 --max_new_tokens 30 --dataset_name Moives
+```
+
+Please note that both the VLMs and GNNs used the same original test set for the node classification task. However, for efficiency during VLM testing, we randomly selected 300 samples from this original test set.
+We observed that the experimental results obtained on this subset did not deviate significantly from those obtained on the complete test set.
+
+#### 🔧 Customizing `load_model_and_processor` for Unsupported VLMs
+
+The `load_model_and_processor` function in `MLLM/Library.py` is designed to load specific models and their corresponding processors from the Hugging Face library. If you want to use a model that is not currently supported, you can modify this function to include your custom model. Below is an example to guide you through the process.
+
+#### Example: Adding Support for a Custom Model
+
+Suppose you want to add support for a new model, `custom-org/custom-model-7B`, which uses the `AutoModelForCausalLM` class and `AutoProcessor`. Here's how you can modify the `load_model_and_processor` function:
+
+1. Open the `MLLM/Library.py` file.
+2. Locate the `model_mapping` dictionary inside the `load_model_and_processor` function.
+3. Add a new entry for your custom model.
+
+Here is the modified code:
+
+```python
+def load_model_and_processor(model_name: str):
+    """
+    Load the model and processor based on the Hugging Face model name.
+    """
+    model_mapping = {
+        "meta-llama/Llama-3.2-11B-Vision-Instruct": {
+            "model_cls": MllamaForConditionalGeneration,
+            "processor_cls": AutoProcessor,
+        },
+        "custom-org/custom-model-7B": {  # Add your custom model here
+            "model_cls": AutoModelForCausalLM,  # Replace with the correct model class
+            "processor_cls": AutoProcessor,    # Replace with the correct processor class
+        },
+        # Other existing models...
+    }
+
+    # Other existing codes...
+
+    return model, processor
+```
+
+## 🤝 Contributing
+
+We welcome contributions to **MAGB**. To contribute:
+
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Submit a pull request with a detailed description of your changes.
+
+For major changes, please open an issue first to discuss what you would like to change.
+
+## 📚 Citation
+
+If you use MAGB in your research, please cite our paper:
+
+```bibtex
+@misc{yan2025graphmeetsmultimodalbenchmarking,
+      title={When Graph meets Multimodal: Benchmarking and Meditating on Multimodal Attributed Graphs Learning},
+      author={Hao Yan and Chaozhuo Li and Jun Yin and Zhigang Yu and Weihao Han and Mingzheng Li and Zhengxin Zeng and Hao Sun and Senzhang Wang},
+      year={2025},
+      eprint={2410.09132},
+      archivePrefix={arXiv},
+      url={https://arxiv.org/abs/2410.09132},
+}
+```
